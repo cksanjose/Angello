@@ -14,8 +14,7 @@ myModule.controller('MainCtrl', function($scope) {
         return tempArray;
     };
 
-    var getStatuses = function() {
-        var tempArray = [
+    $scope.statuses = [
             {name:'Back Log'},
             {name:'To Do'},
             {name:'In Progress'},
@@ -24,22 +23,17 @@ myModule.controller('MainCtrl', function($scope) {
             {name:'Verified'},
             {name:'Done'}
         ];
-        return tempArray;
-    };
 
-    var getTypes = function() {
-        var tempArray = [
+    $scope.types = [
             {name:'Feature'},
             {name:'Enhancement'},
             {name:'Bug'},
             {name:'Spike'}
         ];
-        return tempArray;
-    };
 
 
-    $scope.typesIndex = buildIndex($scopes.types, 'name');
-    $scope.statusesIndex = buildIndex($scopes.statuses, 'name');
+    $scope.typesIndex = buildIndex($scope.types, 'name');
+    $scope.statusesIndex = buildIndex($scope.statuses, 'name');
 
 
     $scope.stories = [
@@ -54,6 +48,10 @@ myModule.controller('MainCtrl', function($scope) {
 
     $scope.setCurrentStory = function (story) {
         $scope.currentStory = story;
+
+        $scope.currentStatus = $scope.statusesIndex[story.status];
+        $scope.currentType = $scope.typesIndex[story.type];
+
     };
 
     $scope.createStory = function() {
@@ -61,6 +59,18 @@ myModule.controller('MainCtrl', function($scope) {
             title: 'New story',
             description: 'This description is pending...'
         });
+    };
+
+    $scope.setCurrentStatus = function (status) {
+        if (typeof $scope.currentStory !== 'undefined') {
+            $scope.currentStory.status = status.name;
+        }
+    };
+
+    $scope.setCurrentType = function (type) {
+        if (typeof $scope.currentStory !== 'undefined') {
+            $scope.currentStory.type = type.name;
+        }
     };
 
 });

@@ -34,6 +34,11 @@
                     <div class="controls">
                         <select id="inputStatus" ng-model="currentStatus" ng-options="l.name for l in statuses" ng-change="setCurrentStatus(currentStatus)"></select>
                     </div>
+                    <h3>{{status.name}}</h3>
+                    <article class="large-12 columns cardWrapper" ng-repeat="story in stories | filter:{status:status.name}" ng-click="setCurrentStory(story)">
+                        <h4>{{story.title}}</h4>
+                        <p>{{story.description}}</p>
+                    </article>
                 </div>
                 <div class="control-group">
                     <label class="control-label" for="inputType">Type</label>
